@@ -366,6 +366,59 @@ public class ColumnChartRenderer extends AbstractChartRenderer {
         }
     }
 
+//    private void drawLabel(Canvas canvas, Column column, SubcolumnValue columnValue, boolean isStacked, float offset) {
+//        final int numChars = column.getFormatter().formatChartValue(labelBuffer, columnValue);
+//
+//        if (numChars == 0) {
+//            // No need to draw empty label
+//            return;
+//        }
+//
+//        final float labelWidth = labelPaint.measureText(labelBuffer, labelBuffer.length - numChars, numChars);
+//        final int labelHeight = Math.abs(fontMetrics.ascent);
+//        float left = drawRect.centerX() - labelWidth / 2 - labelMargin;
+//        float right = drawRect.centerX() + labelWidth / 2 + labelMargin;
+//        float top;
+//        float bottom;
+//        if (isStacked && labelHeight < drawRect.height() - (2 * labelMargin)) {
+//            // For stacked columns draw label only if label height is less than subcolumn height - (2 * labelMargin).
+//            if (columnValue.getValue() >= baseValue) {
+//                top = drawRect.top;
+//                bottom = drawRect.top + labelHeight + labelMargin * 2;
+//            } else {
+//                top = drawRect.bottom - labelHeight - labelMargin * 2;
+//                bottom = drawRect.bottom;
+//            }
+//        } else if (!isStacked) {
+//            // For not stacked draw label at the top for positive and at the bottom for negative values
+//            if (columnValue.getValue() >= baseValue) {
+//                top = drawRect.top - offset - labelHeight - labelMargin * 2;
+//                if (top < computator.getContentRectMinusAllMargins().top) {
+//                    top = drawRect.top + offset;
+//                    bottom = drawRect.top + offset + labelHeight + labelMargin * 2;
+//                } else {
+//                    bottom = drawRect.top - offset;
+//                }
+//            } else {
+//                bottom = drawRect.bottom + offset + labelHeight + labelMargin * 2;
+//                if (bottom > computator.getContentRectMinusAllMargins().bottom) {
+//                    top = drawRect.bottom - offset - labelHeight - labelMargin * 2;
+//                    bottom = drawRect.bottom - offset;
+//                } else {
+//                    top = drawRect.bottom + offset;
+//                }
+//            }
+//        } else {
+//            // Draw nothing.
+//            return;
+//        }
+//
+//        labelBackgroundRect.set(left, top, right, bottom);
+//        drawLabelTextAndBackground(canvas, labelBuffer, labelBuffer.length - numChars, numChars,
+//                columnValue.getDarkenColor());
+//
+//    }
+
     private void drawLabel(Canvas canvas, Column column, SubcolumnValue columnValue, boolean isStacked, float offset) {
         final int numChars = column.getFormatter().formatChartValue(labelBuffer, columnValue);
 
@@ -382,31 +435,17 @@ public class ColumnChartRenderer extends AbstractChartRenderer {
         float bottom;
         if (isStacked && labelHeight < drawRect.height() - (2 * labelMargin)) {
             // For stacked columns draw label only if label height is less than subcolumn height - (2 * labelMargin).
-            if (columnValue.getValue() >= baseValue) {
-                top = drawRect.top;
-                bottom = drawRect.top + labelHeight + labelMargin * 2;
-            } else {
-                top = drawRect.bottom - labelHeight - labelMargin * 2;
-                bottom = drawRect.bottom;
-            }
+            top = drawRect.bottom - labelHeight - labelMargin * 2;
+            bottom = drawRect.bottom;
+
         } else if (!isStacked) {
             // For not stacked draw label at the top for positive and at the bottom for negative values
-            if (columnValue.getValue() >= baseValue) {
-                top = drawRect.top - offset - labelHeight - labelMargin * 2;
-                if (top < computator.getContentRectMinusAllMargins().top) {
-                    top = drawRect.top + offset;
-                    bottom = drawRect.top + offset + labelHeight + labelMargin * 2;
-                } else {
-                    bottom = drawRect.top - offset;
-                }
+            bottom = drawRect.bottom + offset + labelHeight + labelMargin * 2;
+            if (bottom > computator.getContentRectMinusAllMargins().bottom) {
+                top = drawRect.bottom - offset - labelHeight - labelMargin * 2;
+                bottom = drawRect.bottom - offset;
             } else {
-                bottom = drawRect.bottom + offset + labelHeight + labelMargin * 2;
-                if (bottom > computator.getContentRectMinusAllMargins().bottom) {
-                    top = drawRect.bottom - offset - labelHeight - labelMargin * 2;
-                    bottom = drawRect.bottom - offset;
-                } else {
-                    top = drawRect.bottom + offset;
-                }
+                top = drawRect.bottom + offset;
             }
         } else {
             // Draw nothing.
