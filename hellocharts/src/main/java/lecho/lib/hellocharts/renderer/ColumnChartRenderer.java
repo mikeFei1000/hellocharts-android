@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Cap;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
@@ -419,7 +420,8 @@ public class ColumnChartRenderer extends AbstractChartRenderer {
 //
 //    }
 
-
+    //new method
+    //Labels position always on top 设置柱形图的标签始终在图的上方
     private void drawLabel(Canvas canvas, Column column, SubcolumnValue columnValue, boolean isStacked, float offset) {
         final int numChars = column.getFormatter().formatChartValue(labelBuffer, columnValue);
 
@@ -462,4 +464,5 @@ public class ColumnChartRenderer extends AbstractChartRenderer {
                 columnValue.getDarkenColor());
 
     }
+
 }
