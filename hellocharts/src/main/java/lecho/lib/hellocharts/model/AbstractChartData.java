@@ -30,6 +30,12 @@ public abstract class AbstractChartData implements ChartData {
     protected boolean isValueLabelBackgrountAuto = true;
 
     /**
+     * If true and {@link #isValueLabelTextColorAuto()} is true each label will have text color and that
+     * rectangle will be filled with color specified for given value.
+     */
+    protected boolean isValueLabelTextColorAuto = false;
+
+    /**
      * If {@link #isValueLabelBackgroundEnabled} is true and {@link #isValueLabelBackgrountAuto} is false each label
      * will have background rectangle and that rectangle will be filled with this color. Helpful if you want all labels
      * to have the same background color.
@@ -151,6 +157,17 @@ public abstract class AbstractChartData implements ChartData {
     @Override
     public void setValueLabelBackgroundAuto(boolean isValueLabelBackgrountAuto) {
         this.isValueLabelBackgrountAuto = isValueLabelBackgrountAuto;
+    }
+
+
+    @Override
+    public boolean isValueLabelTextColorAuto() {
+        return isValueLabelTextColorAuto;
+    }
+
+    @Override
+    public void setValueLabelTextColorAuto(boolean isValueLabelTextColorAuto) {
+        this.isValueLabelTextColorAuto = isValueLabelTextColorAuto;
     }
 
     @Override

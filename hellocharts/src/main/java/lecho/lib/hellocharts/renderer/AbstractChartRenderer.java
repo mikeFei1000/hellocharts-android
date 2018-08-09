@@ -51,6 +51,7 @@ public abstract class AbstractChartRenderer implements ChartRenderer {
     protected int labelMargin;
     protected boolean isValueLabelBackgroundEnabled;
     protected boolean isValueLabelBackgroundAuto;
+    protected boolean isValueLabelTextColorAuto;
 
     public AbstractChartRenderer(Context context, Chart chart) {
         this.density = context.getResources().getDisplayMetrics().density;
@@ -84,7 +85,7 @@ public abstract class AbstractChartRenderer implements ChartRenderer {
         if (null != typeface) {
             labelPaint.setTypeface(typeface);
         }
-
+        this.isValueLabelTextColorAuto = data.isValueLabelTextColorAuto();
         labelPaint.setColor(data.getValueLabelTextColor());
         labelPaint.setTextSize(ChartUtils.sp2px(scaledDensity, data.getValueLabelTextSize()));
         labelPaint.getFontMetricsInt(fontMetrics);
@@ -119,6 +120,9 @@ public abstract class AbstractChartRenderer implements ChartRenderer {
         } else {
             textX = labelBackgroundRect.left;
             textY = labelBackgroundRect.bottom;
+        }
+        if (isValueLabelTextColorAuto) {
+            labelPaint.setColor(autoBackgroundColor);
         }
 
         canvas.drawText(labelBuffer, startIndex, numChars, textX, textY, labelPaint);

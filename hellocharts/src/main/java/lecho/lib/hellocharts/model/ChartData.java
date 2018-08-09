@@ -122,6 +122,16 @@ public interface ChartData {
     public void setValueLabelBackgroundAuto(boolean isValueLabelBackgrountAuto);
 
     /**
+     * @see #setValueLabelTextColorAuto(boolean)
+     */
+    public boolean isValueLabelTextColorAuto();
+
+    /**
+     * Set false if you want to set custom color for all value labels. Default is false.
+     */
+    public void setValueLabelTextColorAuto(boolean isValueLabelTextColorAuto);
+
+    /**
      * @see #setValueLabelBackgroundColor(int)
      */
     public int getValueLabelBackgroundColor();
