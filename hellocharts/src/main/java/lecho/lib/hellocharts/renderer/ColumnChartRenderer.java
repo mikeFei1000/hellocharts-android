@@ -448,11 +448,11 @@ public class ColumnChartRenderer extends AbstractChartRenderer {
         } else if (!isStacked) {
             // For not stacked draw label at the top for positive and at the bottom for negative values
             if (columnValue.getValue() >= baseValue) {
-                top = drawRect.top - offset - labelHeight - labelMargin * 2;
-                bottom = drawRect.top - offset;
+                top = drawRect.top + offset;
+                bottom = drawRect.top + offset + labelHeight + labelMargin * 2;
             } else {
-                bottom = drawRect.bottom + offset + labelHeight + labelMargin * 2;
-                top = drawRect.bottom + offset;
+                top = drawRect.bottom - offset - labelHeight - labelMargin * 2;
+                bottom = drawRect.bottom - offset;
             }
         } else {
             // Draw nothing.
